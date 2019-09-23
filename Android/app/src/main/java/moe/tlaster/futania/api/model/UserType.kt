@@ -1,0 +1,32 @@
+package moe.tlaster.futania.api.model
+
+enum class SiteType {
+    general,
+    //女性向
+    princess
+}
+
+enum class RankingType {
+    point,
+    fan,
+    post_like
+}
+
+enum class PeriodType {
+    daily,
+    weekly,
+    monthly,
+    all
+}
+
+enum class OrderType {
+    newer,
+    updater,
+    popular
+}
+
+enum class R18Type {
+    both,
+    non,
+    only
+}

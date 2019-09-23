@@ -1,23 +1,20 @@
 package moe.tlaster.futania.api.model
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class NewsResponse (
-    val news: Map<String, NewsData>,
+data class NewsResponse(
+    val news: Map<String, List<NewsData>>,
     val created: String
 )
 
 @Serializable
-data class NewsData (
+data class NewsData(
     val date: String,
     val title: String,
     val url: String,
-    val userTypes: List<UserType>
+    @SerialName("user_types")
+    val userTypes: List<String>
 )
 
-enum class UserType {
-    Creator,
-    Fan,
-    Visitor
-}
