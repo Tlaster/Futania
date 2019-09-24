@@ -99,7 +99,7 @@ data class User(
     val toranoanaIdentifyToken: String,
 
     val name: String,
-    val image: UserImage,
+    val image: Image,
 
     @SerialName("profile_text")
     val profileText: String? = null,
@@ -109,7 +109,7 @@ data class User(
 )
 
 @Serializable
-data class UserImage(
+data class Image(
     val small: String,
     val medium: String,
     val large: String

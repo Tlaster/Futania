@@ -22,7 +22,7 @@ class ApiTest {
 
     @Test
     fun category() = runBlocking {
-        val category = Api.catrgory()
+        val category = Api.category()
         assert(category.categories.any())
     }
 

@@ -30,3 +30,9 @@ enum class R18Type {
     non,
     only
 }
+
+enum class ProductType {
+    all,
+    transfer_by_self,
+    download
+}

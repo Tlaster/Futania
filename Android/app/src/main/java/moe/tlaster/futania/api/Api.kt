@@ -37,10 +37,46 @@ object Api {
             .awaitObject(BannerResponse.serializer())
     }
 
-    suspend fun catrgory(): CategoryResponse {
+    suspend fun category(): CategoryResponse {
         return "https://$HOST/api/v1/fanclubs/categories"
             .httpGet()
             .awaitObject(CategoryResponse.serializer())
+    }
+
+    suspend fun me(): MeResponse {
+        return "https://$HOST/api/v1/me"
+            .httpGet()
+            .awaitObject(MeResponse.serializer())
+    }
+
+    object Timeline {
+        suspend fun posts(
+            page: Int,
+            per: Int
+        ): PostResponse {
+            return "https://$HOST/api/v1/me/timelines/posts"
+                .httpGet(
+                    listOf(
+                        "page" to page,
+                        "per" to per
+                    )
+                )
+                .awaitObject(PostResponse.serializer())
+        }
+
+        suspend fun products(
+            page: Int,
+            per: Int
+        ): ProductResponse {
+            return "https://$HOST/api/v1/me/timelines/products"
+                .httpGet(
+                    listOf(
+                        "page" to page,
+                        "per" to per
+                    )
+                )
+                .awaitObject(ProductResponse.serializer())
+        }
     }
 
     object Ranking {
@@ -87,9 +123,52 @@ object Api {
                 )
                 .awaitObject(PostResponse.serializer())
         }
+
+        suspend fun products(
+            category: String,
+            gender_type: SiteType,
+            kind: RankingType,
+            page: Int,
+            per_page: Int,
+            period: PeriodType
+        ): ProductResponse {
+            return "https://$HOST/api/v1/ranking/products"
+                .httpGet(
+                    listOf(
+                        "category" to category,
+                        "gender_type" to gender_type.name,
+                        "kind" to kind.name,
+                        "page" to page,
+                        "per_page" to per_page,
+                        "period" to period.name
+                    )
+                )
+                .awaitObject(ProductResponse.serializer())
+        }
     }
 
     object Search {
+
+        suspend fun fanclubs(
+            category: String,
+            order: OrderType,
+            page: Int,
+            per_page: Int,
+            siteType: SiteType
+        ): FanclubResponse {
+            return "https://$HOST/api/v1/search/fanclubs"
+                .httpGet(
+                    listOf(
+                        "order" to order.name,
+                        "category" to category,
+                        "page" to page,
+                        "per_page" to per_page,
+                        "princess" to siteType.ordinal
+                    )
+                )
+                .awaitObject(FanclubResponse.serializer())
+        }
+
         suspend fun posts(
             adult: R18Type,
             category: String,
@@ -107,17 +186,64 @@ object Api {
                         "per_page" to per_page,
                         "princess" to siteType.ordinal
                     ).let {
-                        if (adult != R18Type.both) {
-                            it + ("adult" to if (adult == R18Type.non) {
-                                0
-                            } else {
-                                1
+                        when {
+                            adult != R18Type.both -> it + ("adult" to when (adult) {
+                                R18Type.non -> 0
+                                R18Type.only -> 1
+                                else -> throw Error()
                             })
+                            else -> it
                         }
-                        it
                     }
                 )
                 .awaitObject(PostResponse.serializer())
         }
+    }
+
+
+    suspend fun products(
+        adult: R18Type,
+        category: String,
+        in_stock: Boolean,
+        order: OrderType,
+        page: Int,
+        per_page: Int,
+        siteType: SiteType,
+        product_type: ProductType
+    ): ProductResponse {
+        return "https://$HOST/api/v1/search/products"
+            .httpGet(
+                listOf(
+                    "order" to order.name,
+                    "category" to category,
+                    "page" to page,
+                    "per_page" to per_page,
+                    "princess" to siteType.ordinal
+                ).let {
+                    when {
+                        adult != R18Type.both -> it + ("adult" to when (adult) {
+                            R18Type.non -> 0
+                            R18Type.only -> 1
+                            else -> throw Error()
+                        })
+                        else -> it
+                    }
+                }.let {
+                    when {
+                        in_stock -> it + ("in_stock" to 1)
+                        else -> it
+                    }
+                }.let {
+                    when {
+                        product_type != ProductType.all -> it + ("product_type" to when (product_type) {
+                            ProductType.transfer_by_self -> 0
+                            ProductType.download -> 1
+                            else -> throw Error()
+                        })
+                        else -> it
+                    }
+                }
+            )
+            .awaitObject(ProductResponse.serializer())
     }
 }
