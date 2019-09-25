@@ -14,5 +14,4 @@ class HomeFragment : FragmentBase<FragmentHomeBinding>() {
             ViewModelProviders.of(this).get(HomeViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
     }
-
 }

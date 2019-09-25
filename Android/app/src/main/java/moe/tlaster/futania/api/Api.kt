@@ -26,12 +26,12 @@ object Api {
             .awaitObject(NewsResponse.serializer())
     }
 
-    suspend fun banners(type: String = "primary", brand: String = "general"): BannerResponse {
+    suspend fun banners(type: String = "primary", brand: SiteType = SiteType.general): BannerResponse {
         return "https://spotlight.$HOST/wp-json/api/v1/banners"
             .httpGet(
                 listOf(
                     "type" to type,
-                    "brand" to brand
+                    "brand" to brand.name
                 )
             )
             .awaitObject(BannerResponse.serializer())
