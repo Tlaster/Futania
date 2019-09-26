@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class BannerResponse(
-    val bnrs: Map<String, BannerData>,
+    val bnrs: Map<UserType, List<BannerData>>,
     val created: String
 )
 

@@ -9,6 +9,9 @@ import androidx.viewpager2.widget.ViewPager2
 import moe.tlaster.futania.BR
 import moe.tlaster.futania.common.DataBindingAdapter
 import moe.tlaster.futania.common.ItemSelector
+import java.util.*
+import kotlin.concurrent.timer
+import kotlin.concurrent.timerTask
 
 
 @BindingAdapter("itemsSource", "itemTemplate", requireAll = true)
@@ -36,8 +39,8 @@ fun <T> itemClicked(viewPager2: ViewPager2, action: (T) -> Unit) {
 }
 
 
-@BindingAdapter("autoSwitch")
-fun autoSwitch(viewPager2: ViewPager2, value: Boolean) {
+@BindingAdapter("autoPlay", "period")
+fun autoPlay(viewPager2: ViewPager2, value: Boolean, period: Long) {
     if (!value) {
         return
     }
@@ -45,13 +48,25 @@ fun autoSwitch(viewPager2: ViewPager2, value: Boolean) {
         it as? LifecycleOwner
     }?.lifecycle?.also {
         val observer = object : LifecycleObserver {
+            private var viewPagerTimer: Timer? = null
 
             @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
             fun onResume() {
+                viewPagerTimer = timer("viewPagerTimer",
+                    period = period,
+                    initialDelay = period) {
+                    var next = viewPager2.currentItem + 1
+                    if (next >= viewPager2.adapter?.itemCount ?: 0) {
+                        next = 0
+                    }
+                    viewPager2.setCurrentItem(next, true)
+                }
             }
 
             @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
             fun onPause() {
+                viewPagerTimer?.cancel()
+                viewPagerTimer = null
             }
 
             @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)

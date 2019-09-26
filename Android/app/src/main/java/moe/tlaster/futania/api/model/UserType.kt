@@ -6,6 +6,17 @@ enum class SiteType {
     princess
 }
 
+enum class BannerType {
+    primary,
+    secondary
+}
+
+enum class UserType {
+    creator,
+    fan,
+    visitor
+}
+
 enum class RankingType {
     point,
     fan,

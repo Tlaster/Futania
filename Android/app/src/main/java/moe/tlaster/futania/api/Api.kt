@@ -26,11 +26,11 @@ object Api {
             .awaitObject(NewsResponse.serializer())
     }
 
-    suspend fun banners(type: String = "primary", brand: SiteType = SiteType.general): BannerResponse {
+    suspend fun banners(type: BannerType = BannerType.primary, brand: SiteType = SiteType.general): BannerResponse {
         return "https://spotlight.$HOST/wp-json/api/v1/banners"
             .httpGet(
                 listOf(
-                    "type" to type,
+                    "type" to type.name,
                     "brand" to brand.name
                 )
             )
@@ -82,11 +82,11 @@ object Api {
     object Ranking {
         suspend fun fanclubs(
             category: String,
-            gender_type: SiteType,
+            period: PeriodType,
             kind: RankingType,
-            page: Int,
-            per_page: Int,
-            period: PeriodType
+            page: Int = 1,
+            per_page: Int = 12,
+            gender_type: SiteType = SiteType.general
         ): FanclubResponse {
             return "https://$HOST/api/v1/ranking/fanclubs"
                 .httpGet(
@@ -104,11 +104,11 @@ object Api {
 
         suspend fun posts(
             category: String,
-            gender_type: SiteType,
+            period: PeriodType,
             kind: RankingType,
-            page: Int,
-            per_page: Int,
-            period: PeriodType
+            page: Int = 1,
+            per_page: Int = 12,
+            gender_type: SiteType = SiteType.general
         ): PostResponse {
             return "https://$HOST/api/v1/ranking/posts"
                 .httpGet(
@@ -126,11 +126,11 @@ object Api {
 
         suspend fun products(
             category: String,
-            gender_type: SiteType,
+            period: PeriodType,
             kind: RankingType,
-            page: Int,
-            per_page: Int,
-            period: PeriodType
+            page: Int = 1,
+            per_page: Int = 12,
+            gender_type: SiteType = SiteType.general
         ): ProductResponse {
             return "https://$HOST/api/v1/ranking/products"
                 .httpGet(
@@ -152,9 +152,9 @@ object Api {
         suspend fun fanclubs(
             category: String,
             order: OrderType,
-            page: Int,
-            per_page: Int,
-            siteType: SiteType
+            page: Int = 1,
+            per_page: Int = 12,
+            siteType: SiteType = SiteType.general
         ): FanclubResponse {
             return "https://$HOST/api/v1/search/fanclubs"
                 .httpGet(
@@ -173,9 +173,9 @@ object Api {
             adult: R18Type,
             category: String,
             order: OrderType,
-            page: Int,
-            per_page: Int,
-            siteType: SiteType
+            page: Int = 1,
+            per_page: Int = 12,
+            siteType: SiteType = SiteType.general
         ): PostResponse {
             return "https://$HOST/api/v1/search/posts"
                 .httpGet(
@@ -206,10 +206,10 @@ object Api {
         category: String,
         in_stock: Boolean,
         order: OrderType,
-        page: Int,
-        per_page: Int,
-        siteType: SiteType,
-        product_type: ProductType
+        product_type: ProductType,
+        page: Int = 1,
+        per_page: Int = 12,
+        siteType: SiteType = SiteType.general
     ): ProductResponse {
         return "https://$HOST/api/v1/search/products"
             .httpGet(

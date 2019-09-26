@@ -11,26 +11,25 @@ data class SimpleModel(
 
 class HomeViewModel : ViewModelBase() {
 
-    private var news: NewsResponse? = null
-    private var banner: BannerResponse? = null
     private var currentUser: CurrentUser? = null
-    var posts: ObservableArrayList<Post> = ObservableArrayList()
     private var category: List<Category> = listOf()
+    private var userType: UserType = UserType.visitor
+    val posts: ObservableArrayList<Post> = ObservableArrayList()
+    val banner = ObservableArrayList<BannerData>()
+    val news = ObservableArrayList<NewsData>()
     val items by lazy {
         ObservableArrayList<SimpleModel>().apply {
-            addAll((0 until 100).map { SimpleModel(it.toString()) })
+            addAll((0 until 3).map { SimpleModel(it.toString()) })
         }
     }
 
-    val itemClicked: (SimpleModel) -> Unit = {
-        Log.i("Futania", "OnItemClicked: ${it.text}")
-    }
-
-
     suspend fun refresh() {
         posts.clear()
-        banner = Api.banners()
-        news = Api.news()
+        news.clear()
+        banner.clear()
+        //TODO: get user type
+        Api.banners().bnrs[userType]?.let { banner.addAll(it) }
+        Api.news().news[userType]?.let { news.addAll(it) }
         category = Api.category().categories
         val meResponse = Api.me()
         if (meResponse.currentUser != null) {

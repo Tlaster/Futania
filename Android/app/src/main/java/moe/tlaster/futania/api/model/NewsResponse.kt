@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class NewsResponse(
-    val news: Map<String, List<NewsData>>,
+    val news: Map<UserType, List<NewsData>>,
     val created: String
 )
 
