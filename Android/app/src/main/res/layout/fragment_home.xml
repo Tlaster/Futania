@@ -10,7 +10,8 @@
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        onRefresh="@{viewmodel.refresh}">
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -24,12 +25,48 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     android:id="@+id/home_banner"
                     autoPlay="@{true}"
-                    period="@{3000}"
+                    period="@{5000}"
                     itemsSource="@{viewmodel.banner}"
                     itemTemplate="@{@layout/item_banner}"
                     app:layout_constraintDimensionRatio="768:256"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"/>
+                <TextView
+                    android:padding="8dp"
+                    android:id="@+id/home_news_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/home_banner"
+                    android:text="お知らせ・アップデート情報など"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    itemsSource="@{viewmodel.news}"
+                    itemTemplate="@{@layout/item_news}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:id="@+id/home_news"
+                    app:layout_constraintTop_toBottomOf="@id/home_news_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:padding="8dp"
+                    android:id="@+id/home_post_title"
+                    app:layout_constraintTop_toBottomOf="@id/home_news"
+                    android:text="新しい投稿"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    itemsSource="@{viewmodel.posts}"
+                    itemTemplate="@{@layout/item_post}"
+                    app:spanCount="2"
+                    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/home_post_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

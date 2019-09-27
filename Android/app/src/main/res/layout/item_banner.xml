@@ -7,7 +7,7 @@
             type="moe.tlaster.futania.api.model.BannerData" />
     </data>
     <ImageView
-        source="@{model.image.md}"
+        source="@{model.image.lg}"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </layout>

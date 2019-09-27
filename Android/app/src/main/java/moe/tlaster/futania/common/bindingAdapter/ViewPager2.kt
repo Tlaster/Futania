@@ -9,6 +9,7 @@ import androidx.viewpager2.widget.ViewPager2
 import moe.tlaster.futania.BR
 import moe.tlaster.futania.common.DataBindingAdapter
 import moe.tlaster.futania.common.ItemSelector
+import moe.tlaster.futania.common.runOnMainThread
 import java.util.*
 import kotlin.concurrent.timer
 import kotlin.concurrent.timerTask
@@ -59,7 +60,9 @@ fun autoPlay(viewPager2: ViewPager2, value: Boolean, period: Long) {
                     if (next >= viewPager2.adapter?.itemCount ?: 0) {
                         next = 0
                     }
-                    viewPager2.setCurrentItem(next, true)
+                    runOnMainThread {
+                        viewPager2.setCurrentItem(next, true)
+                    }
                 }
             }
 

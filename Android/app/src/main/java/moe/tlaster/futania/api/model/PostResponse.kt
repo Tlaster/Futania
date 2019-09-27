@@ -18,6 +18,8 @@ data class Post (
     val comment: String? = null,
     val tags: List<Tag>,
     val rating: String,
+
+    @SerialName("thumb")
     val thumb: Thumb? = null,
 
     @SerialName("thumb_micro")
