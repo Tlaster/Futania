@@ -3,23 +3,36 @@ package moe.tlaster.futania.common
 import kotlinx.coroutines.*
 
 fun runOnMainThread(action: () -> Unit) {
-    GlobalScope.launch {
+    GlobalScope.runOnMainThread(action)
+}
+
+fun runOnIOThread(action: () -> Unit) {
+    GlobalScope.runOnIOThread(action)
+}
+
+fun runOnDefaultThread(action: () -> Unit) {
+    GlobalScope.runOnDefaultThread(action)
+}
+
+
+fun CoroutineScope.runOnMainThread(action: () -> Unit) {
+    launch {
         withContext(Dispatchers.Main) {
             action.invoke()
         }
     }
 }
 
-fun runOnIOThread(action: () -> Unit) {
-    GlobalScope.launch {
+fun CoroutineScope.runOnIOThread(action: () -> Unit) {
+    launch {
         withContext(Dispatchers.IO) {
             action.invoke()
         }
     }
 }
 
-fun runOnDefaultThread(action: () -> Unit) {
-    GlobalScope.launch {
+fun CoroutineScope.runOnDefaultThread(action: () -> Unit) {
+    launch {
         withContext(Dispatchers.Default) {
             action.invoke()
         }

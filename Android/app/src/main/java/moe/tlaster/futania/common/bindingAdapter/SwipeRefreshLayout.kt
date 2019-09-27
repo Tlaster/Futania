@@ -23,6 +23,6 @@ fun onRefresh(swipeRefreshLayout: SwipeRefreshLayout, action: suspend () -> Unit
     swipeRefreshLayout.setOnRefreshListener {
         refreshAction.invoke()
     }
-    refreshAction.invoke()//initial refresh
+//    refreshAction.invoke()//initial refresh
 }
 
