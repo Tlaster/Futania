@@ -1,9 +1,6 @@
 package moe.tlaster.futania.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import moe.tlaster.futania.api.Api
 import moe.tlaster.futania.api.model.Fanclub
 import moe.tlaster.futania.api.model.PeriodType
@@ -11,6 +8,7 @@ import moe.tlaster.futania.api.model.Post
 import moe.tlaster.futania.api.model.RankingType
 import moe.tlaster.futania.common.async
 import moe.tlaster.futania.common.collection.ObservableCollection
+import moe.tlaster.futania.common.fireAndForgot
 
 class SearchViewModel : ViewModel() {
     val postsRanking = ObservableCollection<Post>()
@@ -26,5 +24,9 @@ class SearchViewModel : ViewModel() {
         Api.Ranking.fanclubs(category = category.first().slug, period = PeriodType.daily, kind = RankingType.point).fanclubs.let {
             fanclubsRanking.addAll(it)
         }
+    }
+
+    init {
+        refresh.fireAndForgot()
     }
 }

@@ -41,3 +41,9 @@ fun CoroutineScope.runOnDefaultThread(action: () -> Unit) {
 
 
 public inline fun async(noinline block: suspend () -> Unit): suspend () -> Unit = block
+
+public fun <T> (suspend () -> T).fireAndForgot() {
+    GlobalScope.launch {
+        this@fireAndForgot.invoke()
+    }
+}

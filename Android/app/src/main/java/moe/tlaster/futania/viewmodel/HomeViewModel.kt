@@ -1,13 +1,10 @@
 package moe.tlaster.futania.viewmodel
 
-import android.util.Log
-import androidx.databinding.ObservableArrayList
-import kotlinx.coroutines.GlobalScope
 import moe.tlaster.futania.api.Api
 import moe.tlaster.futania.api.model.*
 import moe.tlaster.futania.common.async
 import moe.tlaster.futania.common.collection.ObservableCollection
-import moe.tlaster.futania.common.runOnDefaultThread
+import moe.tlaster.futania.common.fireAndForgot
 
 data class SimpleModel(
     val text: String
@@ -44,6 +41,10 @@ class HomeViewModel : ViewModelBase() {
             posts.addAll(Api.Timeline.posts(1, per = 12).posts)
             currentUser = it.currentUser
         }
+    }
+
+    init {
+        refresh.fireAndForgot()
     }
 }
 
