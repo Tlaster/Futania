@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="moe.tlaster.futania.fragment.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:name="moe.tlaster.futania.fragment.MeFragment"
+        android:label="@string/title_me"
+        tools:layout="@layout/fragment_me" />
 </navigation>
