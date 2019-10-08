@@ -11,9 +11,9 @@ class LoginViewModel : ViewModelBase() {
 
     val loginSuccess: MutableLiveData<Boolean> = MutableLiveData()
 
-    val onPageFinished = { url: String? ->
+    val onPageStarted = { url: String? ->
         url?.let {
-            if (it.startsWith("https://fantia.jp/auth/toranoana/callback")) {
+            if (it.startsWith("https://fantia.jp")) {
                 CookieManager.getInstance().getCookie("https://fantia.jp/")
                     .split(';')
                     .map {

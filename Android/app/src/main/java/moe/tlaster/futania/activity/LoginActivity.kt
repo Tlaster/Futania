@@ -15,8 +15,10 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>() {
         binding.viewmodel = ViewModelProviders.of(this).get(LoginViewModel::class.java).also {
             it.loginSuccess.observe(this, Observer<Boolean> {
                 if (it) {
-                    setResult(Activity.RESULT_OK)
-                    finish()
+                    runOnUiThread {
+                        setResult(Activity.RESULT_OK)
+                        finish()
+                    }
                 }
             })
         }
