@@ -1,5 +1,7 @@
 package moe.tlaster.futania.common
 
+import android.content.res.Resources
+import android.util.TypedValue
 import kotlinx.coroutines.*
 
 fun runOnMainThread(action: () -> Unit) {
@@ -47,3 +49,10 @@ public fun <T> (suspend () -> T).fireAndForgot() {
         this@fireAndForgot.invoke()
     }
 }
+
+val Number.dp: Float
+    get() = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        this.toFloat(),
+        Resources.getSystem().displayMetrics
+    )

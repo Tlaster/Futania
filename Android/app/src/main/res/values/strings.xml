@@ -3,4 +3,5 @@
     <string name="title_home">Home</string>
     <string name="title_search">Search</string>
     <string name="title_me">Me</string>
+    <string name="profile_joinedFanclubsCount">参加中のファンクラブ: %s</string>
 </resources>

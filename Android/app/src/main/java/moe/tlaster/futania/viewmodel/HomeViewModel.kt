@@ -6,10 +6,6 @@ import moe.tlaster.futania.common.async
 import moe.tlaster.futania.common.collection.ObservableCollection
 import moe.tlaster.futania.common.fireAndForgot
 
-data class SimpleModel(
-    val text: String
-)
-
 class HomeViewModel : ViewModelBase() {
     private var currentUser: CurrentUser? = null
     private var category: List<Category> = listOf()
@@ -17,11 +13,6 @@ class HomeViewModel : ViewModelBase() {
     val posts = ObservableCollection<Post>()
     val banner = ObservableCollection<BannerData>()
     val news = ObservableCollection<NewsData>()
-    val items by lazy {
-        ObservableCollection<SimpleModel>().apply {
-            addAll((0 until 3).map { SimpleModel(it.toString()) })
-        }
-    }
 
     val refresh = async {
         posts.clear()

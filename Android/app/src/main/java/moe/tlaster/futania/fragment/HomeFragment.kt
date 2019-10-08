@@ -5,7 +5,7 @@ import moe.tlaster.futania.R
 import moe.tlaster.futania.databinding.FragmentHomeBinding
 import moe.tlaster.futania.viewmodel.HomeViewModel
 
-class HomeFragment : FragmentBase<FragmentHomeBinding>() {
+class HomeFragment : BindingFragment<FragmentHomeBinding>() {
     override val layout: Int
         get() = R.layout.fragment_home
 

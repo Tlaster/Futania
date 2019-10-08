@@ -21,6 +21,7 @@
                 android:layout_height="match_parent"
                 android:visibility="@{viewmodel.profile == null ? View.VISIBLE : View.GONE}">
                 <Button
+                    android:id="@+id/login_button"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -40,8 +41,38 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintDimensionRatio="1:1"
-                    android:layout_width="match_parent"
+                    android:id="@+id/me_avatar"
+                    app:layout_constraintWidth_percent="0.4"
+                    android:layout_width="0dp"
                     android:layout_height="0dp"/>
+                <TextView
+                    android:layout_marginTop="8dp"
+                    paddingHorizontal="@{8}"
+                    style="@style/TextAppearance.AppCompat.Title"
+                    tools:text="dsafds"
+                    android:id="@+id/me_name"
+                    android:text="@{viewmodel.profile.currentUser.name}"
+                    app:layout_constraintTop_toBottomOf="@id/me_avatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_marginTop="8dp"
+                    paddingHorizontal="@{8}"
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    tools:text="dsafds"
+                    android:id="@+id/me_profileText"
+                    android:text="@{viewmodel.profile.currentUser.profileText}"
+                    app:layout_constraintTop_toBottomOf="@id/me_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_marginTop="8dp"
+                    tools:text="dsadsadsa"
+                    paddingHorizontal="@{8}"
+                    app:layout_constraintTop_toBottomOf="@id/me_profileText"
+                    android:text="@{String.format(@string/profile_joinedFanclubsCount, viewmodel.profile.currentUser.joinedFanclubsCount)}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

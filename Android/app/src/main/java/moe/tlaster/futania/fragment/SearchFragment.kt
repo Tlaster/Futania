@@ -9,7 +9,7 @@ import moe.tlaster.futania.R
 import moe.tlaster.futania.databinding.FragmentSearchBinding
 import moe.tlaster.futania.viewmodel.SearchViewModel
 
-class SearchFragment : FragmentBase<FragmentSearchBinding>() {
+class SearchFragment : BindingFragment<FragmentSearchBinding>() {
     override val layout: Int
         get() = R.layout.fragment_search
 

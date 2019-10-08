@@ -12,7 +12,6 @@ import moe.tlaster.futania.common.ItemSelector
 import moe.tlaster.futania.common.runOnMainThread
 import java.util.*
 import kotlin.concurrent.timer
-import kotlin.concurrent.timerTask
 
 
 @BindingAdapter("itemsSource", "itemTemplate", requireAll = true)
@@ -26,7 +25,7 @@ fun <T> items(viewPager2: ViewPager2, list: List<T>, layoutId: Int) {
     }
 }
 
-private val ITEMCLICK_ID = -4590
+private val ITEMCLICK_ID = -3421
 @BindingAdapter("itemClicked")
 fun <T> itemClicked(viewPager2: ViewPager2, action: (T) -> Unit) {
     val adapter = viewPager2.adapter?.let {

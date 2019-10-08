@@ -25,3 +25,17 @@ object AndroidLogResponseInterceptor : FoldableResponseInterceptor {
         }
     }
 }
+
+object CookieRequestInterceptor : FoldableRequestInterceptor {
+    override fun invoke(next: RequestTransformer): RequestTransformer {
+        return { request ->
+            Settings.get("SessionID", "").takeIf {
+                it.isNotEmpty()
+            }?.let {
+                request.header("Cookie", "_session_id=$it")
+            }
+            next(request)
+        }
+    }
+
+}
